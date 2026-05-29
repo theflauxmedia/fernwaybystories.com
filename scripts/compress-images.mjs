@@ -1,0 +1,135 @@
+/**
+ * Resize and re-encode public images for web delivery.
+ * Run: npm run compress:images
+ */
+import sharp from "sharp";
+import { readdir, rename, stat, unlink } from "fs/promises";
+import path from "path";
+
+const ROOT = path.join(process.cwd(), "public");
+const TARGET_DIRS = ["ambience", "food"];
+const STANDALONE_FILES = ["logo.png"];
+
+/** Max long edge — enough for 2x retina full-width (~960px layout) */
+const MAX_LONG_EDGE = 1920;
+const WEBP_QUALITY = 84;
+const PNG_QUALITY = 90;
+
+async function collectFiles(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await collectFiles(full)));
+    } else if (/\.(webp|png|jpe?g)$/i.test(entry.name)) {
+      files.push(full);
+    }
+  }
+
+  return files;
+}
+
+async function compressFile(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  const before = (await stat(filePath)).size;
+
+  const image = sharp(filePath, { failOn: "none" }).rotate();
+  const meta = await image.metadata();
+  const width = meta.width ?? 0;
+  const height = meta.height ?? 0;
+  const longEdge = Math.max(width, height);
+
+  let pipeline = image;
+
+  if (longEdge > MAX_LONG_EDGE) {
+    pipeline = pipeline.resize({
+      width: width >= height ? MAX_LONG_EDGE : undefined,
+      height: height > width ? MAX_LONG_EDGE : undefined,
+      fit: "inside",
+      withoutEnlargement: true,
+    });
+  }
+
+  const tmpPath = `${filePath}.compress-tmp`;
+
+  if (ext === ".webp") {
+    await pipeline
+      .webp({ quality: WEBP_QUALITY, effort: 6, smartSubsample: true })
+      .toFile(tmpPath);
+  } else if (ext === ".png") {
+    await pipeline
+      .png({ quality: PNG_QUALITY, compressionLevel: 9, palette: meta.hasAlpha })
+      .toFile(tmpPath);
+  } else if (ext === ".jpg" || ext === ".jpeg") {
+    await pipeline.jpeg({ quality: WEBP_QUALITY, mozjpeg: true }).toFile(tmpPath);
+  } else {
+    return null;
+  }
+
+  const after = (await stat(tmpPath)).size;
+
+  if (after >= before) {
+    await unlink(tmpPath);
+    return { filePath, before, after: before, skipped: true };
+  }
+
+  await rename(tmpPath, filePath);
+  return { filePath, before, after, skipped: false };
+}
+
+function formatBytes(n) {
+  if (n >= 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(2)} MB`;
+  if (n >= 1024) return `${(n / 1024).toFixed(1)} KB`;
+  return `${n} B`;
+}
+
+async function main() {
+  const files = [];
+
+  for (const dir of TARGET_DIRS) {
+    files.push(...(await collectFiles(path.join(ROOT, dir))));
+  }
+
+  for (const name of STANDALONE_FILES) {
+    const full = path.join(ROOT, name);
+    try {
+      await stat(full);
+      files.push(full);
+    } catch {
+      /* optional file */
+    }
+  }
+
+  let totalBefore = 0;
+  let totalAfter = 0;
+  let processed = 0;
+
+  console.log(`Compressing ${files.length} images (max ${MAX_LONG_EDGE}px, WebP q${WEBP_QUALITY})…\n`);
+
+  for (const file of files.sort()) {
+    const result = await compressFile(file);
+    if (!result) continue;
+
+    totalBefore += result.before;
+    totalAfter += result.after;
+    processed += 1;
+
+    const rel = path.relative(ROOT, result.filePath);
+    const pct = result.skipped
+      ? "skipped (already optimal)"
+      : `${Math.round((1 - result.after / result.before) * 100)}% smaller`;
+
+    console.log(`${rel}: ${formatBytes(result.before)} → ${formatBytes(result.after)} (${pct})`);
+  }
+
+  console.log(
+    `\nDone. ${processed} files — ${formatBytes(totalBefore)} → ${formatBytes(totalAfter)} (${Math.round((1 - totalAfter / totalBefore) * 100)}% total reduction)`,
+  );
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

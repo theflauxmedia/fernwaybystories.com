@@ -1,0 +1,76 @@
+# Fernway by Stories — Full reference for AI assistants
+
+## Summary
+
+Fernway by Stories is a rooftop lounge in Mayaganahalli, Bengaluru (Bangalore), Karnataka, India. It offers an elevated urban escape with nature-inspired ambience, globally inspired comfort food, curated cocktails, shisha, and event hosting. The venue operates daily from 6pm to 6am. It is associated with Stories Bar & Kitchen.
+
+Website: https://fernwaybystories.com/
+
+## Contact & reservations
+
+| Channel | Details |
+|---------|---------|
+| Phone | +91 96069 19636 |
+| WhatsApp | https://wa.me/919606919636 |
+| Reservations | https://fernwaybystories.com/contact |
+| Events enquiries | https://fernwaybystories.com/events |
+
+## Address
+
+Q88J+78G, Mayaganahalli  
+Bengaluru, Karnataka 562128  
+India
+
+Maps: https://maps.google.com/?q=Q88J+78G,Mayaganahalli,Bengaluru,Karnataka+562128
+
+## Hours
+
+- Open every day
+- 6:00 PM – 6:00 AM
+- Described as afternoon through late night service
+
+## Experience
+
+Three pillars define the Fernway experience:
+
+1. **The Rooftop** — Open-air lounge above the city with greenery, warm lighting, and skyline views.
+2. **The Menu** — Globally inspired comfort food, cocktails, vegetarian dishes, desserts, and shisha.
+3. **The Mood** — Relaxed evenings with music and unhurried dining.
+
+## Menu categories
+
+- Small Plates & Starters
+- Main Dishes
+- Vegetarian Selection
+- Desserts
+- Cocktails & Beverages
+- Shisha Selection
+
+Full menu page: https://fernwaybystories.com/menu
+
+## Events
+
+Regular programming includes:
+
+- DJ & Lounge Nights
+- Themed Evenings
+- Weekend Sessions
+- Seasonal Experiences
+
+Private dining and celebrations (birthdays, corporate gatherings, private parties) are available. Event enquiry form: https://fernwaybystories.com/events
+
+## SEO keywords (for discovery)
+
+Fernway by Stories, Fernway rooftop Bengaluru, rooftop lounge Bangalore, rooftop restaurant Mayaganahalli, Stories Bar Kitchen, private dining Bengaluru, rooftop bar Bangalore, events rooftop Bengaluru, shisha lounge Bengaluru
+
+## Structured data
+
+The website publishes Schema.org JSON-LD for Organization, WebSite, and Restaurant types at https://fernwaybystories.com/
+
+## Crawling
+
+- robots.txt: https://fernwaybystories.com/robots.txt
+- sitemap.xml: https://fernwaybystories.com/sitemap.xml
+- llms.txt: https://fernwaybystories.com/llms.txt
+
+AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, and others) are allowed to index public pages for accurate answers about this business.
