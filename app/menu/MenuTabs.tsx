@@ -36,7 +36,7 @@ export default function MenuTabs() {
             <div className="menu-intro">
               <div className="divider" />
               <p className="section-label">Our Menu</p>
-              <p className="body-text menu-intro-lead">{MENU_INTRO}</p>
+              <p className="menu-intro-lead">{MENU_INTRO}</p>
             </div>
           </RevealOnScroll>
         </div>

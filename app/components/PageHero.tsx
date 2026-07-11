@@ -15,9 +15,6 @@ export default function PageHero({ label, title }: PageHeroProps) {
 
   return (
     <section className="page-hero relative flex flex-col items-center justify-end overflow-hidden text-center">
-      <div className="page-hero-bg absolute inset-0" aria-hidden="true" />
-      <div className="page-hero-grain absolute inset-0 pointer-events-none" aria-hidden="true" />
-
       <motion.div
         className="relative z-[1] flex flex-col items-center gap-4 px-6 pb-2"
         initial={reduced ? false : { opacity: 0, y: lite ? 12 : 24 }}

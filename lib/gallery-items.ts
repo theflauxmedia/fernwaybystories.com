@@ -13,34 +13,26 @@ const HOMEPAGE_SPANS = [
 ];
 
 const ambienceMeta = [
-  { title: "Rooftop at Dusk", desc: "Bengaluru skyline as evening settles in." },
+  { title: "Dusk on the Road", desc: "Bengaluru skyline as evening settles in." },
   { title: "Open Sky", desc: "Where the city meets the horizon." },
   { title: "Evening Light", desc: "Soft glow over the terrace." },
   { title: "The Deck", desc: "Space to linger under the stars." },
   { title: "Night Ambience", desc: "Mood, music, and open air." },
   { title: "City Views", desc: "Panoramas from above Mayaganahalli." },
-  { title: "Golden Hour", desc: "Sunset hues across the rooftop." },
+  { title: "Golden Hour", desc: "Sunset hues across open-air seating." },
   { title: "The Lounge", desc: "Unhurried corners to gather." },
   { title: "After Dark", desc: "When Fernway comes alive." },
   { title: "Sky-lit Tables", desc: "Dining beneath Bengaluru nights." },
   { title: "Terrace Nights", desc: "An open-air escape in the city." },
   { title: "The Atmosphere", desc: "Every detail, intentionally set." },
   { title: "Under the Stars", desc: "Where stories unfold outdoors." },
-  { title: "Evening Escape", desc: "Your rooftop sanctuary awaits." },
+  { title: "Evening Escape", desc: "Your open-air sanctuary awaits." },
 ];
 
 const foodMeta = [
   { title: "From the Kitchen", desc: "Artisan plates, plated with care." },
   { title: "Chef's Selection", desc: "Seasonal flavours, bold and refined." },
-  { title: "Small Plates", desc: "Meant for sharing and pairing." },
-  { title: "Craft & Kitchen", desc: "Where food meets the open sky." },
-  { title: "The Pass", desc: "Fresh from kitchen to table." },
-  { title: "Signature Bites", desc: "Curated for rooftop evenings." },
-  { title: "Shared Plates", desc: "Pass, pair, and savour." },
-  { title: "Main Event", desc: "Hearty plates for long nights." },
-  { title: "Coastal Notes", desc: "Inspired plates with global soul." },
-  { title: "Sweet Finish", desc: "Desserts to close the evening." },
-  { title: "Bar Bites", desc: "Perfect beside a curated pour." },
+  { title: "Signature Bites", desc: "Curated for open-air evenings." },
   { title: "Tonight's Spread", desc: "A taste of Fernway by Stories." },
 ];
 
@@ -52,7 +44,7 @@ function buildItems(
   return Array.from({ length: count }, (_, i) => {
     const index = i + 1;
     const copy = meta[i] ?? {
-      title: folder === "ambience" ? "The Rooftop" : "The Kitchen",
+      title: folder === "ambience" ? "Open Air" : "The Kitchen",
       desc: folder === "ambience" ? "Evenings at Fernway." : "Plates from our kitchen.",
     };
     return {
@@ -66,16 +58,20 @@ function buildItems(
 }
 
 export const ambienceGalleryItems = buildItems("ambience", 14, ambienceMeta);
-export const foodGalleryItems = buildItems("food", 12, foodMeta);
+ambienceGalleryItems[3].url = "/ambience/11.webp";
+ambienceGalleryItems[5].url = "/ambience/12.webp";
+ambienceGalleryItems[6].url = "/ambience/13.webp";
+ambienceGalleryItems[8].url = "/ambience/15.webp";
+export const foodGalleryItems = buildItems("food", 4, foodMeta);
 
-/** Homepage gallery strip — mix of ambience & food */
+/** Homepage gallery strip — new kitchen shots + ambience highlights */
 export const fernwayGalleryItems: ImageItem[] = [
-  ambienceGalleryItems[8],
   foodGalleryItems[0],
-  ambienceGalleryItems[3],
+  foodGalleryItems[1],
+  ambienceGalleryItems[8],
   foodGalleryItems[2],
-  ambienceGalleryItems[6],
-  foodGalleryItems[4],
+  ambienceGalleryItems[3],
+  foodGalleryItems[3],
 ];
 
 /** Full gallery page — all venue photos */
@@ -112,26 +108,16 @@ const AMBIENCE_GALLERY_SPANS: string[] = [
 ];
 
 /**
- * Art-directed desktop layout for /gallery food section (12 images, 4-col grid):
+ * Art-directed desktop layout for /gallery food section (4 images, 4-col grid):
  *
- * Row 1: [0·tall][1·wide][1][2 ]
- * Row 2: [0·tall][3 ][4 ][5 ]
- * Row 3: [6 ][7 ][8·wide][8]
- * Row 4: [9·wide][9][10 ][11]
+ * Row 1: [0·hero][0][1 ]
+ * Row 2: [0·hero][2 ][3·wide]
  */
 const FOOD_GALLERY_SPANS: string[] = [
-  "lg:row-span-2",                              // 0 — tall accent
-  "sm:col-span-2 lg:col-span-2",               // 1 — wide opener
-  "",                                            // 2
-  "",                                            // 3
-  "",                                            // 4
-  "",                                            // 5
-  "",                                            // 6
-  "",                                            // 7
-  "lg:col-span-2",                              // 8 — wide
-  "sm:col-span-2 lg:col-span-2",               // 9 — wide closer
-  "",                                            // 10
-  "",                                            // 11
+  "sm:col-span-2 lg:col-span-2 lg:row-span-2", // 0 — hero
+  "",                                             // 1
+  "",                                             // 2
+  "sm:col-span-2 lg:col-span-2",                // 3 — wide closer
 ];
 
 export function withAmbienceGallerySpans(items: ImageItem[]): ImageItem[] {
@@ -145,5 +131,18 @@ export function withFoodGallerySpans(items: ImageItem[]): ImageItem[] {
   return items.map((item, i) => ({
     ...item,
     span: FOOD_GALLERY_SPANS[i] ?? "",
+  }));
+}
+
+/** Full /gallery page — ambience + food in one bento grid */
+const GALLERY_PAGE_SPANS: string[] = [
+  ...AMBIENCE_GALLERY_SPANS,
+  ...FOOD_GALLERY_SPANS,
+];
+
+export function withGalleryPageSpans(items: ImageItem[]): ImageItem[] {
+  return items.map((item, i) => ({
+    ...item,
+    span: GALLERY_PAGE_SPANS[i] ?? "",
   }));
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { SITE_LOGO } from "@/lib/favicons";
+import { NAV_LOGO } from "@/lib/favicons";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BUSINESS } from "@/lib/site";
@@ -21,8 +21,13 @@ const links = [
 ];
 
 export default function Nav() {
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
+  const setOpen = useCallback(
+    (next: boolean) => setOpenPath(next ? pathname : null),
+    [pathname],
+  );
   const reduced = useReducedMotion();
   const lite = useLiteMotion();
 
@@ -47,16 +52,12 @@ export default function Nav() {
   }, [open]);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, setOpen]);
 
   return (
     <>
@@ -78,7 +79,14 @@ export default function Nav() {
 
           <Link href="/" className="nav-logo-link" aria-label="Fernway by Stories">
             <div className="nav-logo">
-              <Image src={SITE_LOGO} alt="" fill className="object-contain" priority />
+              <Image
+                src={NAV_LOGO}
+                alt=""
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 6.5rem, 9.25rem"
+                priority
+              />
             </div>
           </Link>
 

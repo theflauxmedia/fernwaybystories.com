@@ -1,11 +1,11 @@
 export const EVENTS_OVERVIEW_HEADLINE = "Evenings at Fernway";
 
 export const EVENTS_OVERVIEW_INTRO =
-  "From relaxed music sessions to curated themed evenings, Fernway offers experiences designed to complement the rooftop setting — never rushed, never overwhelming.";
+  "From relaxed music sessions to curated themed evenings, Fernway offers experiences designed to complement the open-air setting — never rushed, never overwhelming.";
 
 export const eventTypes = [
-  { id: "dj", title: "DJ & Lounge Nights", image: "/ambience/6.webp" },
-  { id: "themed", title: "Themed Evenings", image: "/ambience/7.webp" },
+  { id: "dj", title: "DJ & Lounge Nights", image: "/ambience/10.webp" },
+  { id: "themed", title: "Themed Evenings", image: "/ambience/14.webp" },
   { id: "weekend", title: "Weekend Sessions", image: "/ambience/8.webp" },
   { id: "seasonal", title: "Seasonal Experiences", image: "/ambience/9.webp" },
 ] as const;

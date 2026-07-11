@@ -1,23 +1,7 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  type ReactNode,
-} from "react";
+import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
-
-type LenisContextValue = {
-  lenis: Lenis | null;
-};
-
-const LenisContext = createContext<LenisContextValue>({ lenis: null });
-
-export function useLenis() {
-  return useContext(LenisContext);
-}
 
 function shouldDisableSmoothScroll() {
   if (typeof window === "undefined") return true;
@@ -29,8 +13,6 @@ function shouldDisableSmoothScroll() {
 }
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
-
   useEffect(() => {
     if (shouldDisableSmoothScroll()) return;
 
@@ -45,7 +27,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       infinite: false,
     });
 
-    lenisRef.current = lenis;
     document.documentElement.classList.add("lenis", "lenis-smooth");
 
     let raf = 0;
@@ -71,14 +52,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       observer.disconnect();
       cancelAnimationFrame(raf);
       lenis.destroy();
-      lenisRef.current = null;
       document.documentElement.classList.remove("lenis", "lenis-smooth");
     };
   }, []);
 
-  return (
-    <LenisContext.Provider value={{ lenis: lenisRef.current }}>
-      {children}
-    </LenisContext.Provider>
-  );
+  return children;
 }

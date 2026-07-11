@@ -162,7 +162,7 @@ export const rootMetadata: Metadata = {
         secureUrl: getOgImageUrl(),
         width: 1200,
         height: 630,
-        alt: `${BUSINESS.name} — rooftop lounge in Bengaluru`,
+        alt: `${BUSINESS.name} — open-air lounge in Bengaluru`,
         type: "image/webp",
       },
     ],
@@ -170,10 +170,10 @@ export const rootMetadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: SEO.defaultTitle,
-    description: BUSINESS.tagline,
+    description: SEO.defaultDescription,
     images: {
       url: getOgImageUrl(),
-      alt: `${BUSINESS.name} — rooftop lounge in Bengaluru`,
+      alt: `${BUSINESS.name} — open-air lounge in Bengaluru`,
     },
   },
   other: {

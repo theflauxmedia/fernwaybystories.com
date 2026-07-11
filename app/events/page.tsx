@@ -16,11 +16,11 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "Events & Private Dining",
   description:
-    "Evenings at Fernway — DJ nights, themed evenings, weekend sessions, and private celebrations on our Bengaluru rooftop. Submit an event enquiry online.",
+    "Evenings at Fernway — DJ nights, themed evenings, weekend sessions, and private celebrations in our open-air Bengaluru setting. Submit an event enquiry online.",
   path: "/events",
-  image: "/ambience/6.webp",
-  imageAlt: "Events and private dining at Fernway by Stories rooftop",
-  keywords: ["rooftop events Bengaluru", "private dining Bangalore", "DJ lounge Mayaganahalli"],
+  image: "/ambience/10.webp",
+  imageAlt: "Events and private dining at Fernway by Stories",
+  keywords: ["events Bengaluru", "private dining Bengaluru", "DJ lounge Mayaganahalli"],
 });
 
 export default function EventsPage() {
@@ -89,13 +89,7 @@ export default function EventsPage() {
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 45vw"
                   />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(15,17,13,0.5) 0%, transparent 55%)",
-                    }}
-                  />
+                  <div className="absolute inset-0 img-brand-overlay" />
                 </figure>
               </RevealOnScroll>
             </div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SITE_LOGO } from "@/lib/favicons";
 import ReserveTableLink from "./ReserveTableLink";
+import PartnerBookingLinks from "./PartnerBookingLinks";
 import { BUSINESS } from "@/lib/site";
 
 const navLinks = [
@@ -20,17 +21,6 @@ export default function Footer() {
         <div className="site-footer-grid">
           {/* Brand */}
           <div className="site-footer-brand">
-            <div className="flex items-center gap-4">
-              <div className="site-footer-logo">
-                <Image src={SITE_LOGO} alt="" fill className="object-contain" />
-              </div>
-              <div>
-                <p className="site-footer-title">Fernway</p>
-                <p className="site-footer-byline" style={{ marginTop: "0.35rem" }}>
-                  by Stories
-                </p>
-              </div>
-            </div>
             <p className="site-footer-tagline">{BUSINESS.tagline}</p>
             <div className="site-footer-actions">
               <ReserveTableLink className="btn-gold">
@@ -45,6 +35,7 @@ export default function Footer() {
                 WhatsApp
               </a>
             </div>
+            <PartnerBookingLinks variant="light" />
             <p className="site-footer-byline">By Stories Bar &amp; Kitchen</p>
           </div>
 
@@ -75,16 +66,29 @@ export default function Footer() {
               </a>
               <a
                 href={BUSINESS.mapsUrl}
-                className="footer-link"
+                className="footer-link footer-link--maps"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: "0.8rem", letterSpacing: "0.14em", textTransform: "uppercase" }}
               >
                 Open in Maps →
               </a>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="site-footer-mark section-wrap">
+        <Link href="/" className="site-footer-mark-link" aria-label="Fernway by Stories">
+          <Image
+            src={SITE_LOGO}
+            alt="Fernway by Stories"
+            width={480}
+            height={360}
+            className="site-footer-mark-logo"
+            sizes="(max-width: 640px) 72vw, 18rem"
+            priority={false}
+          />
+        </Link>
       </div>
 
       <div className="site-footer-bar section-wrap">

@@ -1,6 +1,6 @@
 # Fernway by Stories
 
-Marketing site for Fernway by Stories — rooftop bar & kitchen in Bengaluru.
+Marketing site for Fernway by Stories — open-air bar & kitchen in Bengaluru.
 
 ## Development
 

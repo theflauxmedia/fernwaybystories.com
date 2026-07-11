@@ -5,7 +5,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import PageTransition from "./components/PageTransition";
 import { getStructuredDataGraph } from "@/lib/json-ld";
 import { rootMetadata } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site";
+import { BUSINESS, SITE_URL } from "@/lib/site";
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -37,7 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#2C3669" />
         <meta name="geo.region" content="IN-KA" />
         <meta name="geo.placename" content="Bengaluru" />
-        <meta name="ICBM" content="12.8346, 77.6641" />
+        <meta name="ICBM" content={`${BUSINESS.coordinates.lat}, ${BUSINESS.coordinates.lng}`} />
+        <meta name="geo.position" content={`${BUSINESS.coordinates.lat};${BUSINESS.coordinates.lng}`} />
       </head>
       <body className="min-h-full flex flex-col">
         <SmoothScroll>

@@ -10,6 +10,9 @@ const ROOT = path.join(process.cwd(), "public");
 const TARGET_DIRS = ["ambience", "food"];
 const STANDALONE_FILES = ["logo.png"];
 
+/** Drop-in folders: compress, convert to WebP, rename 1.webp, 2.webp, … */
+const INGEST_DIRS = ["new_images"];
+
 /** Max long edge — enough for 2x retina full-width (~960px layout) */
 const MAX_LONG_EDGE = 1920;
 const WEBP_QUALITY = 84;
@@ -79,6 +82,83 @@ async function compressFile(filePath) {
   return { filePath, before, after, skipped: false };
 }
 
+async function compressToWebp(sourcePath, destPath) {
+  const before = (await stat(sourcePath)).size;
+
+  const image = sharp(sourcePath, { failOn: "none" }).rotate();
+  const meta = await image.metadata();
+  const width = meta.width ?? 0;
+  const height = meta.height ?? 0;
+  const longEdge = Math.max(width, height);
+
+  let pipeline = image;
+
+  if (longEdge > MAX_LONG_EDGE) {
+    pipeline = pipeline.resize({
+      width: width >= height ? MAX_LONG_EDGE : undefined,
+      height: height > width ? MAX_LONG_EDGE : undefined,
+      fit: "inside",
+      withoutEnlargement: true,
+    });
+  }
+
+  const tmpPath = `${destPath}.compress-tmp`;
+  await pipeline
+    .webp({ quality: WEBP_QUALITY, effort: 6, smartSubsample: true })
+    .toFile(tmpPath);
+
+  const after = (await stat(tmpPath)).size;
+  await rename(tmpPath, destPath);
+  return { before, after };
+}
+
+async function ingestSerialImages(dirName) {
+  const dirPath = path.join(ROOT, dirName);
+
+  let entries;
+  try {
+    entries = await readdir(dirPath, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  const sources = entries
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        /\.(webp|png|jpe?g)$/i.test(entry.name) &&
+        !/^\d+\.webp$/i.test(entry.name),
+    )
+    .map((entry) => path.join(dirPath, entry.name))
+    .sort();
+
+  if (sources.length === 0) return [];
+
+  const existingSerial = entries
+    .filter((entry) => entry.isFile() && /^\d+\.webp$/i.test(entry.name))
+    .map((entry) => Number.parseInt(entry.name, 10))
+    .filter((n) => !Number.isNaN(n));
+
+  let nextIndex = existingSerial.length > 0 ? Math.max(...existingSerial) + 1 : 1;
+  const results = [];
+
+  console.log(`Ingesting ${sources.length} image(s) from ${dirName}/ → serial WebP…\n`);
+
+  for (const sourcePath of sources) {
+    const destPath = path.join(dirPath, `${nextIndex}.webp`);
+    const relSource = path.relative(ROOT, sourcePath);
+    const relDest = path.relative(ROOT, destPath);
+
+    const { before, after } = await compressToWebp(sourcePath, destPath);
+    await unlink(sourcePath);
+
+    results.push({ relSource, relDest, before, after });
+    nextIndex += 1;
+  }
+
+  return results;
+}
+
 function formatBytes(n) {
   if (n >= 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(2)} MB`;
   if (n >= 1024) return `${(n / 1024).toFixed(1)} KB`;
@@ -86,6 +166,21 @@ function formatBytes(n) {
 }
 
 async function main() {
+  const ingestResults = [];
+
+  for (const dirName of INGEST_DIRS) {
+    ingestResults.push(...(await ingestSerialImages(dirName)));
+  }
+
+  for (const result of ingestResults) {
+    const pct = `${Math.round((1 - result.after / result.before) * 100)}% smaller`;
+    console.log(
+      `${result.relSource} → ${result.relDest}: ${formatBytes(result.before)} → ${formatBytes(result.after)} (${pct})`,
+    );
+  }
+
+  if (ingestResults.length > 0) console.log("");
+
   const files = [];
 
   for (const dir of TARGET_DIRS) {

@@ -13,8 +13,11 @@ export const FAVICONS = {
   android512: `${FAVICON_DIR}/android-chrome-512x512.png`,
 } as const;
 
-/** Main site logo — nav, footer, structured data (not favicon assets) */
+/** Main site logo — footer, structured data (not favicon assets) */
 export const SITE_LOGO = "/logo.png";
+
+/** Green logo for the header navbar */
+export const NAV_LOGO = "/Green-logo.png";
 
 export const siteIcons: Metadata["icons"] = {
   icon: [

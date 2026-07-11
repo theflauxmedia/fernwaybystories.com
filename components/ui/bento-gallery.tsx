@@ -17,8 +17,8 @@ export type ImageItem = {
 
 export interface InteractiveImageBentoGalleryProps {
   imageItems: ImageItem[];
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   className?: string;
   variant?: "cream" | "sand";
   /** Eager-load first N images in this section */
@@ -140,6 +140,7 @@ export default function InteractiveImageBentoGallery({
   variant = "cream",
   eagerCount = 2,
 }: InteractiveImageBentoGalleryProps) {
+  const showHeader = Boolean(title || description);
   const [selectedItem, setSelectedItem] = useState<ImageItem | null>(null);
   const lite = useLiteMotion();
 
@@ -150,13 +151,15 @@ export default function InteractiveImageBentoGallery({
         variant === "sand" ? "gallery-bento-section--sand" : "gallery-bento-section--cream",
         className,
       )}
-      aria-label={title}
+      aria-label={title ?? "Gallery"}
     >
       <div className="section-wrap gallery-bento-wrap">
-        <header className="gallery-bento-header">
-          <h2 className="gallery-bento-heading">{title}</h2>
-          <p className="gallery-bento-lead">{description}</p>
-        </header>
+        {showHeader ? (
+          <header className="gallery-bento-header">
+            {title ? <h2 className="gallery-bento-heading">{title}</h2> : null}
+            {description ? <p className="gallery-bento-lead">{description}</p> : null}
+          </header>
+        ) : null}
 
         <div className="gallery-bento-grid">
           {imageItems.map((item, i) => (

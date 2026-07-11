@@ -4,6 +4,7 @@ import Link from "next/link";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import HeroBackgroundVideo from "./components/HeroBackgroundVideo";
+import HeroScrollOverlay from "./components/HeroScrollOverlay";
 import RevealOnScroll from "./components/RevealOnScroll";
 import HomeGalleryPreview from "./components/HomeGalleryPreview";
 import ReserveTableLink from "./components/ReserveTableLink";
@@ -16,15 +17,17 @@ export const metadata: Metadata = createPageMetadata({
   description: SEO.defaultDescription,
   path: "/",
   titleAbsolute: true,
-  imageAlt: "Fernway by Stories rooftop lounge at dusk, Bengaluru",
-  keywords: ["rooftop bar Bengaluru", "reserve table Fernway", "Mayaganahalli nightlife"],
+  imageAlt: "Fernway by Stories open-air lounge at dusk, Bengaluru",
+  keywords: ["open-air bar Bengaluru", "Bengaluru Mysore Highway lounge", "reserve table Fernway", "Mayaganahalli nightlife"],
 });
+
+const pillarAccents = ["twilight", "rust", "pine"] as const;
 
 const pillars = [
   {
     num: "01",
-    title: "The Rooftop",
-    desc: "Open sky, lush greenery, and amber light that softens as the evening deepens. Designed to make the city feel far below — even when you're right in the middle of it.",
+    title: "Open Air",
+    desc: "Open-air seating beneath the sky, framed by lush greenery and warm amber light. A landmark destination along the Bengaluru Mysore Highway, Fernway blends effortless charm with pet-friendly hospitality, creating a space where every member of the family feels at home. Unhurried, open, and unmistakably Fernway.",
   },
   {
     num: "02",
@@ -47,10 +50,11 @@ function IconInstagram() {
     </svg>
   );
 }
-function IconFacebook() {
+function IconLocation() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
     </svg>
   );
 }
@@ -76,26 +80,14 @@ export default function Home() {
           {/* Background video */}
           <div className="hero-bg absolute inset-0">
             <HeroBackgroundVideo />
-            <div className="hero-bg-overlay" aria-hidden="true" />
+            <HeroScrollOverlay />
           </div>
 
           {/* Content */}
           <div className="hero-section-inner">
             {/* Headline block */}
             <div className="flex flex-col gap-5 max-w-3xl">
-              <div
-                className="opacity-0"
-                style={{ animation: "fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards" }}
-              >
-                <span className="section-label" style={{ color: "var(--gold)" }}>
-                  Refined Rooftop Destination
-                </span>
-              </div>
-
-              <div
-                className="opacity-0"
-                style={{ animation: "fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards" }}
-              >
+              <div className="hero-fade-up hero-fade-up--1">
                 <h1
                   style={{
                     fontFamily: "var(--font-display, Georgia, serif)",
@@ -110,10 +102,7 @@ export default function Home() {
                 </h1>
               </div>
 
-              <div
-                className="opacity-0 flex flex-col gap-3"
-                style={{ animation: "fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.45s forwards" }}
-              >
+              <div className="hero-fade-up hero-fade-up--2 flex flex-col gap-3">
                 <div className="flex items-center gap-3">
                   <div style={{ width: "2rem", height: "1px", background: "var(--gold)", opacity: 0.6 }} />
                   <span
@@ -134,7 +123,7 @@ export default function Home() {
                     fontStyle: "italic",
                     fontWeight: 400,
                     fontSize: "clamp(1rem, 2vw, 1.65rem)",
-                    color: "rgba(242,237,228,0.5)",
+                    color: "rgba(242,237,228,0.78)",
                     lineHeight: 1.4,
                   }}
                 >
@@ -143,20 +132,16 @@ export default function Home() {
               </div>
 
               {/* CTAs */}
-              <div
-                className="opacity-0 hero-cta-row pt-2"
-                style={{ animation: "fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.58s forwards" }}
-              >
-                <ReserveTableLink className="btn-gold">Reserve a Table</ReserveTableLink>
+              <div className="hero-fade-up hero-fade-up--3 hero-cta-row pt-2">
                 <Link href="/menu" className="hero-btn-outline">View Menu</Link>
                 <div
                   className="hero-social-row flex items-center gap-4"
                   style={{ marginLeft: "0.5rem", borderLeft: "1px solid rgba(255,255,255,0.12)", paddingLeft: "1.25rem" }}
                 >
                   {[
-                    { href: "https://www.facebook.com/", Icon: IconFacebook, label: "Facebook" },
-                    { href: "https://www.instagram.com/", Icon: IconInstagram, label: "Instagram" },
-                    { href: "https://wa.me/919606919636", Icon: IconWhatsApp, label: "WhatsApp" },
+                    { href: BUSINESS.mapsDirectionsUrl, Icon: IconLocation, label: "Get directions" },
+                    { href: BUSINESS.social.instagram, Icon: IconInstagram, label: "Instagram" },
+                    { href: BUSINESS.whatsapp, Icon: IconWhatsApp, label: "WhatsApp" },
                   ].map(({ href, Icon, label }) => (
                     <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="hero-social-icon">
                       <Icon />
@@ -171,29 +156,11 @@ export default function Home() {
         {/* ═══════════════════════════════════════
             MARQUEE
         ═══════════════════════════════════════ */}
-        <div
-          className="overflow-hidden py-4"
-          style={{
-            background: "var(--bg-light)",
-            borderBottom: "1px solid rgba(var(--gold-rgb),0.14)",
-          }}
-          aria-hidden="true"
-        >
+        <div className="marquee-band overflow-hidden py-4" aria-hidden="true">
           <div className="flex animate-marquee whitespace-nowrap" style={{ width: "max-content" }}>
             {Array(14).fill(null).map((_, i) => (
-              <span
-                key={i}
-                className="flex items-center"
-                style={{
-                  fontFamily: "var(--font-body, Helvetica, sans-serif)",
-                  fontSize: "0.56rem",
-                  letterSpacing: "0.35em",
-                  textTransform: "uppercase",
-                  color: "rgba(var(--gold-rgb),0.6)",
-                  paddingRight: "2.5rem",
-                }}
-              >
-                Rooftop
+              <span key={i} className="marquee-track flex items-center">
+                <span className="marquee-track-accent">Open Air</span>
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
                 Cocktails
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
@@ -201,9 +168,9 @@ export default function Home() {
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
                 Shisha
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
-                Bengaluru
+                <span className="marquee-track-accent">Bengaluru</span>
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
-                Open Nightly
+                Open Daily
                 <span style={{ margin: "0 1rem", opacity: 0.5 }}>·</span>
                 Stories
               </span>
@@ -239,8 +206,8 @@ export default function Home() {
                       letterSpacing: "-0.015em",
                     }}
                   >
-                    An Evening{" "}
-                    <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Above the City</em>
+                    An Evening on{" "}
+                    <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Bengaluru Mysore Highway</em>
                   </h2>
                   <p
                     style={{
@@ -252,13 +219,13 @@ export default function Home() {
                       fontWeight: 300,
                     }}
                   >
-                    Fernway by Stories is Bengaluru&rsquo;s rooftop destination for evenings that deserve
-                    more than ordinary. Open skies, candlelit tables, globally inspired food, and cocktails
-                    poured for conversations that run late. Step up. Stay as long as you like.
+                    Fernway by Stories has a new iconic landmark on Bengaluru Mysore Highway — open-air seating
+                    for evenings that deserve more than ordinary. Candlelit tables, globally inspired food,
+                    and cocktails poured for conversations that run late. Pull up. Stay as long as you like.
                   </p>
 
                   {/* <div className="flex flex-wrap gap-3" style={{ paddingTop: "0.5rem" }}>
-                    {["Open-Air Rooftop", "Craft Cocktails", "Nightly 6PM – 6AM"].map((tag) => (
+                    {["Open-Air Seating", "Craft Cocktails", "Nightly 6PM – 6AM"].map((tag) => (
                       <span key={tag} className="tag-pill">
                         {tag}
                       </span>
@@ -274,7 +241,7 @@ export default function Home() {
               {/* Image */}
               <RevealOnScroll delay={160}>
                 <div
-                  className="relative img-overlay"
+                  className="relative img-overlay img-overlay--zoom-in"
                   style={{
                     aspectRatio: "4/5",
                     border: "1px solid rgba(var(--gold-rgb),0.12)",
@@ -282,16 +249,13 @@ export default function Home() {
                 >
                   <Image
                     src="/ambience/14.webp"
-                    alt="Fernway by Stories rooftop"
+                    alt="Fernway by Stories open-air seating"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     // style={{ filter: "saturate(0.85) brightness(0.9)" }}
                   />
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(to top, rgba(15,17,13,0.6) 0%, transparent 55%)" }}
-                  />
+                  <div className="absolute inset-0 img-brand-overlay" />
                   <div
                     className="absolute bottom-0 left-0 right-0 flex justify-between items-end"
                     style={{ padding: "clamp(1rem, 2.5vw, 1.75rem)" }}
@@ -305,7 +269,7 @@ export default function Home() {
                         color: "rgba(242,237,228,0.5)",
                       }}
                     >
-                      The Rooftop
+                      Open Air
                     </p>
                     <p
                       style={{
@@ -349,40 +313,14 @@ export default function Home() {
               </div>
             </RevealOnScroll>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
-                gap: "clamp(0.75rem, 1.5vw, 1.25rem)",
-              }}
-            >
+            <div className="pillar-grid">
               {pillars.map((p, i) => (
-                <RevealOnScroll key={p.title} delay={i * 90}>
-                  <div className="pillar-card flex flex-col" style={{ gap: "1.1rem" }}>
+                <RevealOnScroll key={p.title} delay={i * 90} className="h-full">
+                  <div className={`pillar-card pillar-card--${pillarAccents[i]}`}>
                     <span className="pillar-num">{p.num}</span>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-display, Georgia, serif)",
-                        fontWeight: 500,
-                        fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
-                        color: "var(--text-light)",
-                        letterSpacing: "0.01em",
-                      }}
-                    >
-                      {p.title}
-                    </h3>
-                    <div style={{ width: "1.8rem", height: "1px", background: "var(--gold)", opacity: 0.5 }} />
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body, Helvetica, sans-serif)",
-                        fontSize: "0.82rem",
-                        lineHeight: 1.85,
-                        color: "var(--text-muted)",
-                        fontWeight: 300,
-                      }}
-                    >
-                      {p.desc}
-                    </p>
+                    <h3 className="pillar-card-title">{p.title}</h3>
+                    <div className="pillar-card-rule" aria-hidden="true" />
+                    <p className="pillar-card-desc">{p.desc}</p>
                   </div>
                 </RevealOnScroll>
               ))}
@@ -402,14 +340,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════
             RESERVE CTA  ·  dark
         ═══════════════════════════════════════ */}
-        <section className="relative overflow-hidden section-bg-dark">
-          {/* Background gradient atmosphere */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse 65% 70% at 50% 50%, rgba(var(--gold-rgb),0.07) 0%, transparent 70%)",
-            }}
-          />
+        <section className="relative overflow-hidden section-bg-pine">
           {/* Large watermark text */}
           <div
             className="absolute select-none pointer-events-none"
@@ -447,11 +378,11 @@ export default function Home() {
                     lineHeight: 1.02,
                     color: "#F2EDE4",
                     letterSpacing: "-0.025em",
-                    maxWidth: "15ch",
+                    maxWidth: "22ch",
                   }}
                 >
-                  Tonight,{" "}
-                  <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Above the City</em>
+                  Your table awaits you at{" "}
+                  <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Bengaluru Mysore Highway</em>
                 </h2>
                 <p
                   style={{
@@ -464,7 +395,7 @@ export default function Home() {
                   }}
                 >
                   Tables fill fast, especially on weekends. Reserve yours and give the evening the space
-                  it deserves — above the noise, under open sky. For private celebrations and events,
+                  it deserves — along Bengaluru Mysore Highway, under open sky. For private celebrations and events,
                   our team handles every detail.
                 </p>
                 <div className="cta-stack" style={{ paddingTop: "0.5rem" }}>

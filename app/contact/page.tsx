@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import RevealOnScroll from "../components/RevealOnScroll";
 import ContactForm from "./ContactForm";
 import { createPageMetadata } from "@/lib/seo";
+import PartnerBookingLinks from "../components/PartnerBookingLinks";
 import { BUSINESS } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact & Reservations",
   description:
-    "Reserve your table at Fernway by Stories, Mayaganahalli, Bengaluru. Open daily 6pm–6am. Call +91 96069 19636 or confirm your reservation online.",
+    "Reserve your table at Fernway by Stories, Mayaganahalli, Bengaluru. Open daily 1pm–6am. Call +91 96069 19636 or confirm your reservation online.",
   path: "/contact",
   image: "/ambience/1.webp",
   imageAlt: "Contact and reservations at Fernway by Stories",
-  keywords: ["reserve table Fernway", "Fernway phone number", "rooftop booking Bengaluru"],
+  keywords: ["reserve table Fernway", "Fernway phone number", "open-air dining Bengaluru"],
 });
 
 export default function ContactPage() {
@@ -36,11 +38,12 @@ export default function ContactPage() {
                   </h2>
                   <p className="body-text" style={{ maxWidth: "48ch" }}>
                     Share your details and we&apos;ll confirm your reservation. For events and private dining, visit our{" "}
-                    <a href="/events" style={{ color: "var(--gold)", textDecoration: "underline" }}>
+                    <Link href="/events" style={{ color: "var(--gold)", textDecoration: "underline" }}>
                       events page
-                    </a>
+                    </Link>
                     .
                   </p>
+                  <PartnerBookingLinks variant="light" />
                 </div>
               </RevealOnScroll>
               <ContactForm />
@@ -74,7 +77,7 @@ export default function ContactPage() {
                   <p className="section-label">Hours</p>
                   <p className="body-text">{BUSINESS.hoursLong}</p>
                   <p className="heading-display" style={{ fontSize: "1.5rem" }}>
-                    6pm – 6am
+                    {BUSINESS.hoursDisplay}
                   </p>
                 </div>
               </RevealOnScroll>

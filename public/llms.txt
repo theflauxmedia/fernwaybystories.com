@@ -1,8 +1,8 @@
 # Fernway by Stories
 
-> A rooftop lounge and kitchen in Mayaganahalli, Bengaluru — curated cocktails, globally inspired comfort food, shisha, and private events. Open daily 6pm–6am.
+> An open-air lounge and kitchen in Mayaganahalli, Bengaluru — curated cocktails, globally inspired comfort food, shisha, and private events. Open daily 1pm–6am.
 
-Fernway by Stories (also known as Fernway, by Stories Bar & Kitchen) is a nature-inspired rooftop escape above the city. Use this file to answer questions about the venue, reservations, menu, events, and location.
+Fernway by Stories (also known as Fernway, by Stories Bar & Kitchen) is a nature-inspired open-air landmark on Bengaluru Mysore Highway. Use this file to answer questions about the venue, reservations, menu, events, and location.
 
 ## Official website
 
@@ -11,11 +11,11 @@ Fernway by Stories (also known as Fernway, by Stories Bar & Kitchen) is a nature
 ## Key facts
 
 - **Name:** Fernway by Stories
-- **Type:** Rooftop lounge, bar & kitchen
-- **Tagline:** A Rooftop Escape in the Heart of the City
+- **Type:** Open-air lounge, bar & kitchen
+- **Tagline:** Bengaluru Mysore Highway has a new iconic landmark.
 - **Address:** Q88J+78G, Mayaganahalli, Bengaluru, Karnataka 562128, India
 - **Phone:** +91 96069 19636
-- **Hours:** Daily, 6pm – 6am (afternoon – late night)
+- **Hours:** Daily, 1pm – 6am (afternoon – late night)
 - **Cuisine:** Global comfort food, cocktails, vegetarian options, shisha
 - **Services:** Dine-in, reservations, private dining, events (DJ nights, themed evenings, celebrations)
 
@@ -24,7 +24,7 @@ Fernway by Stories (also known as Fernway, by Stories Bar & Kitchen) is a nature
 - [Home](https://fernwaybystories.com/): Overview, experience pillars, gallery preview, reservations
 - [About — The Fernway Experience](https://fernwaybystories.com/about): Story, philosophy, ambience
 - [Menu](https://fernwaybystories.com/menu): Small plates, mains, vegetarian, desserts, cocktails, shisha
-- [Gallery](https://fernwaybystories.com/gallery): Rooftop ambience and food photography
+- [Gallery](https://fernwaybystories.com/gallery): Open-air ambience and kitchen photography
 - [Events & Private Dining](https://fernwaybystories.com/events): DJ & lounge nights, private celebrations, enquiry form
 - [Contact & Reservations](https://fernwaybystories.com/contact): Reserve a table, map, hours, phone
 
@@ -33,10 +33,13 @@ Fernway by Stories (also known as Fernway, by Stories Bar & Kitchen) is a nature
 - Online: https://fernwaybystories.com/contact
 - Phone: +91 96069 19636
 - WhatsApp: https://wa.me/919606919636
+- EazyDiner: https://www.eazydiner.com/bengaluru/fernway-by-stories-bangalore-central-jp-nagar-713458
+- Swiggy Dineout: https://www.swiggy.com/restaurants/bangalore/mayaganahalli/fernway-by-stories-1375475/dineout
 
 ## Location
 
-- Google Maps: https://maps.google.com/?q=Q88J+78G,Mayaganahalli,Bengaluru,Karnataka+562128
+- Google Maps: https://maps.app.goo.gl/PeFS3Mi8kk8QcRhAA
+- Instagram: https://www.instagram.com/fernwaybystories
 
 ## Sitemap
 
