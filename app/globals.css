@@ -2292,14 +2292,9 @@ body {
 
 .footer-credits-logo {
   width: auto;
-  height: 1.4rem;
-  filter: invert(1);
-}
-
-@media (min-width: 640px) {
-  .footer-credits-logo {
-    height: 1.65rem;
-  }
+  height: 1.75rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .footer-credits-text {

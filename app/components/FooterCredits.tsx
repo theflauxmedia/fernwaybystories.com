@@ -7,8 +7,8 @@ export default function FooterCredits() {
         <Image
           src="/brands/flauxmedia.png"
           alt="The Flaux Media"
-          width={72}
-          height={24}
+          width={136}
+          height={117}
           className="footer-credits-logo"
         />
         <p className="footer-credits-text">
