@@ -51,6 +51,27 @@ export const BUSINESS = {
   ],
 } as const;
 
+const PLACEHOLDER_SOCIAL_HOSTS = new Set(["www.facebook.com", "facebook.com"]);
+
+export function isActiveSocialUrl(url: string) {
+  try {
+    const { hostname, pathname } = new URL(url);
+    if (PLACEHOLDER_SOCIAL_HOSTS.has(hostname) && (pathname === "/" || pathname === "")) {
+      return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function getActiveSocialLinks() {
+  return [
+    { name: "Instagram", href: BUSINESS.social.instagram },
+    { name: "Facebook", href: BUSINESS.social.facebook },
+  ].filter((link) => isActiveSocialUrl(link.href));
+}
+
 export const SEO = {
   defaultTitle: "Fernway by Stories | Open-Air Lounge, Bengaluru",
   defaultDescription:

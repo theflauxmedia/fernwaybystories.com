@@ -7,7 +7,7 @@ import RevealOnScroll from "../components/RevealOnScroll";
 import ContactForm from "./ContactForm";
 import { createPageMetadata } from "@/lib/seo";
 import PartnerBookingLinks from "../components/PartnerBookingLinks";
-import { BUSINESS } from "@/lib/site";
+import { BUSINESS, getActiveSocialLinks } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact & Reservations",
@@ -98,24 +98,18 @@ export default function ContactPage() {
                     WhatsApp
                   </a>
                   <div className="flex gap-4 pt-2">
-                    <a
-                      href={BUSINESS.social.instagram}
-                      className="section-label hover:underline"
-                      style={{ color: "var(--gold)" }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Instagram
-                    </a>
-                    <a
-                      href={BUSINESS.social.facebook}
-                      className="section-label hover:underline"
-                      style={{ color: "var(--gold)" }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Facebook
-                    </a>
+                    {getActiveSocialLinks().map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        className="section-label hover:underline"
+                        style={{ color: "var(--gold)" }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.name}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </RevealOnScroll>

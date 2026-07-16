@@ -28,6 +28,7 @@
 /temporary screenshots/
 screenshot.mjs
 /brand_assets/
+.claude/
 
 # debug
 npm-debug.log*

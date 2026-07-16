@@ -1,5 +1,5 @@
 import { SITE_LOGO } from "./favicons";
-import { BUSINESS, SEO, SITE_URL, pageUrl } from "./site";
+import { BUSINESS, SEO, SITE_URL, isActiveSocialUrl, pageUrl } from "./site";
 import { absoluteAssetUrl } from "./seo";
 
 const organizationId = `${SITE_URL}/#organization`;
@@ -7,9 +7,7 @@ const websiteId = `${SITE_URL}/#website`;
 const restaurantId = `${SITE_URL}/#restaurant`;
 
 function realSocialUrls() {
-  return [BUSINESS.social.instagram, BUSINESS.social.facebook].filter(
-    (url) => !url.endsWith("instagram.com/") && !url.endsWith("facebook.com/"),
-  );
+  return [BUSINESS.social.instagram, BUSINESS.social.facebook].filter(isActiveSocialUrl);
 }
 
 export function getStructuredDataGraph() {
