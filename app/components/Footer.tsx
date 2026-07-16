@@ -3,6 +3,7 @@ import Image from "next/image";
 import { SITE_LOGO } from "@/lib/favicons";
 import ReserveTableLink from "./ReserveTableLink";
 import PartnerBookingLinks from "./PartnerBookingLinks";
+import FooterCredits from "./FooterCredits";
 import { BUSINESS } from "@/lib/site";
 
 const navLinks = [
@@ -95,6 +96,8 @@ export default function Footer() {
         <p>© {new Date().getFullYear()} Fernway by Stories</p>
         <p>Bengaluru, India</p>
       </div>
+
+      <FooterCredits />
     </footer>
   );
 }
