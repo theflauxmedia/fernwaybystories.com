@@ -1,4 +1,4 @@
-import { reserveTableWhatsAppUrl } from "@/lib/whatsapp";
+import { BUSINESS } from "@/lib/site";
 
 type ReserveTableLinkProps = {
   className?: string;
@@ -13,7 +13,7 @@ export default function ReserveTableLink({
 }: ReserveTableLinkProps) {
   return (
     <a
-      href={reserveTableWhatsAppUrl}
+      href={BUSINESS.reserveTableUrl}
       target="_blank"
       rel="noopener noreferrer"
       className={className}

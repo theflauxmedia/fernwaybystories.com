@@ -5,9 +5,11 @@ export const BUSINESS = {
   name: "Fernway by Stories",
   shortName: "Fernway",
   tagline: "Bengaluru Mysore Highway has a new iconic landmark.",
-  phone: "+919606919636",
-  phoneDisplay: "+91 96069 19636",
+  phone: "+918047162244",
+  phoneDisplay: "080-471-62244",
+  whatsappPhone: "+919606919636",
   whatsapp: "https://wa.me/919606919636",
+  reserveTableUrl: "https://widget.reservego.co/reserveOutlets/69f84d68d1e0f45432ca2e77",
   address: {
     line1: "Q88J+78G, Mayaganahalli",
     city: "Bengaluru",

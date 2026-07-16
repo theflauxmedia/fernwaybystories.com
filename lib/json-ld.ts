@@ -52,7 +52,7 @@ export function getStructuredDataGraph() {
           "@type": "ReserveAction",
           target: {
             "@type": "EntryPoint",
-            urlTemplate: pageUrl("/contact"),
+            urlTemplate: BUSINESS.reserveTableUrl,
             actionPlatform: [
               "http://schema.org/DesktopWebPlatform",
               "http://schema.org/MobileWebPlatform",

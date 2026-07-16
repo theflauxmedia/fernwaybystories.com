@@ -1,7 +1,7 @@
 import { BUSINESS } from "./site";
 
 /** Digits only — for wa.me links */
-export const WHATSAPP_NUMBER = BUSINESS.phone.replace(/\D/g, "");
+export const WHATSAPP_NUMBER = BUSINESS.whatsappPhone.replace(/\D/g, "");
 
 export function buildWhatsAppUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
